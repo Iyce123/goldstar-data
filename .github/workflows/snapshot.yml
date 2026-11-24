@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Fetch prices and write data files
-        run: python3 scripts/snapshot.py
+        run: python3 goldstar-data/scripts/snapshot.py
 
       - name: Commit changes
         run: |
