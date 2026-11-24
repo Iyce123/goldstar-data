@@ -14,6 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Network check (temporary)
+        continue-on-error: true
+        run: |
+          getent ahosts dev.kwayisi.org || true
+          curl -sS -m 15 -o /dev/null -w "kwayisi: %{http_code}\n" https://dev.kwayisi.org/apis/gse/live || true
+          curl -sS -m 15 -o /dev/null -w "gse.com.gh: %{http_code}\n" https://gse.com.gh/trading-and-data/ || true
+          curl -sS -m 15 -o /dev/null -w "afx: %{http_code}\n" https://afx.kwayisi.org/gse || true
 
       - name: Fetch prices and write data files
         run: python3 goldstar-data/scripts/snapshot.py
